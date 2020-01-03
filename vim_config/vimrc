@@ -1,0 +1,103 @@
+" PlugInstall [name ...] [#threads]	安装插件
+" PlugUpdate [name ...] [#threads]	安装或更新插件
+" PlugClean[!]				删除未列出的插件（爆炸版本将在没有提示的情况下清除）
+" PlugUpgrade				本身升级vim-plug
+" PlugStatus				检查插件状态
+" PlugDiff				检查来自先前更新的更改以及未决的更改
+" PlugSnapshot[!] [output path]		生成脚本以还原插件的当前快照
+"
+set nu
+
+
+
+" 为插件指定目录
+call plug#begin('~/.vim/plugged')
+
+" 请确保使用单引号 
+" 允许任何有效的git URL  
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" 多插头命令可以在一个单一的线路使用被写入|分隔符  
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" 这里我们只安装 php 的插件【phpcd】
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+
+
+" 按需加载  
+" 目录树
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" 显示git信息
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'valloric/youcompleteme'
+Plug 'Chiel92/vim-autoformat'
+
+" 状态栏 https://github.com/vim-airline/vim-airline
+Plug 'vim-airline/vim-airline'
+"状态栏配色
+Plug 'vim-airline/vim-airline-themes'
+
+" 配色
+Plug 'flazz/vim-colorschemes'
+
+" 配置文档：https://github.com/beanworks/vim-phpfmt
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" 使用非主分支 
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" 使用带标签的版本;允许通配（需要git 1.9.2或更高版本 
+" Plug 'fatih/vim-go', { 'tag': '*' }
+
+" 插件选项 
+" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" 插件〜/ .vim /用更新后挂钩 
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" 非托管插件（手动安装和更新  
+" Plug '~/my-prototype-plugin'
+
+" 初始化插件系统
+call plug#end()
+
+" 插件NERD配置开始
+" 打开vim时,自动打开NERDTree
+" autocmd vimenter * NERDTree
+" 使用Ctrl + t 切换目录树
+map <C-t> :NERDTreeToggle<CR>
+" ctrl + w(double) 在目录和文件直接自由的切换.
+"当NERDTree为剩下的唯一窗口时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+"修改树的显示图标
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeAutoCenter=1
+" 显示行号
+let NERDTreeShowLineNumbers=1
+" 是否显示隐藏文件
+let NERDTreeShowHidden=0
+" 忽略一下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+
+" 设置宽度
+let NERDTreeWinSize=40
+" 开发的过程中，我们希望git信息直接在NERDTree中显示出来
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+"colorscheme Atelier_HeathDark 
+colorscheme  Atelier_SeasideDark
+"colorscheme Light 
+
