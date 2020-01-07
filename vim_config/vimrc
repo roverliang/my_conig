@@ -227,3 +227,12 @@ nmap ,hh :DoxAuthor<CR><ESC>k8==j$a
 nmap cc :Dox<CR><ESC>k8==j$a<TAB>
 nmap ,da :DoxAuthor<CR><ESC>k8==
 nmap ,db :DoxBlock<CR><ESC>k8==
+
+"光标
+imap () ()<Left>
+imap [] []<Left>
+imap {} {}<Left>
+imap "" ""<Left>
+imap " "<Left>
+let loaded_matchparen=1
+
