@@ -52,7 +52,7 @@ Plug 'flazz/vim-colorschemes'
 
 "php语法着色插件
 Plug 'StanAngeloff/php.vim'
-" PHP语法检查
+" PHP语法检查https://stackoverflow.com/questions/857885/formatting-php-code-within-vim
 Plug 'stephpy/vim-php-cs-fixer'
 
 Plug 'ncm2/ncm2'
@@ -64,6 +64,9 @@ Plug 'yegappan/mru' "最近文件列表
 Plug 'vim-scripts/DoxygenToolkit.vim' " PHP注释插件
 " 配置文档：https://github.com/beanworks/vim-phpfmt
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'godlygeek/tabular'
+
+
 
 " 使用非主分支 
 " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -155,8 +158,9 @@ syntax on
 
 
 "===================================php-cs-fixer配置开始==================================
+"如何安装php-cs-fixer 详见：https://github.com/FriendsOfPHP/PHP-CS-Fixer
 " If php-cs-fixer is in $PATH, you don't need to define line below
-" let g:php_cs_fixer_path = "~/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
+"let g:php_cs_fixer_path = "~/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
 
 " If you use php-cs-fixer version 1.x
 let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
@@ -176,8 +180,8 @@ let g:php_cs_fixer_php_path = "php"               " Path to PHP
 let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+"nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+"nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
 "===================================php-cs-fixer配置结束==================================
 
@@ -229,10 +233,5 @@ nmap ,da :DoxAuthor<CR><ESC>k8==
 nmap ,db :DoxBlock<CR><ESC>k8==
 
 "光标
-imap () ()<Left>
-imap [] []<Left>
-imap {} {}<Left>
-imap "" ""<Left>
-imap " "<Left>
 let loaded_matchparen=1
 
