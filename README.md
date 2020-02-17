@@ -1,2 +1,4 @@
 # my_conig
-日常配置
+-VIM IDE配置
+-phpstorm 日常配置
+
