@@ -235,3 +235,16 @@ nmap ,db :DoxBlock<CR><ESC>k8==
 "光标
 let loaded_matchparen=1
 
+
+
+
+" ========================================================一些依赖安装============================================
+" ### 1.catgs 安装
+        "http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
+        "tar xf ctags-5.8.tar.gz
+        "cd ctags-5.8/
+        "sudo ./configure
+        "sudo make
+        "sudo make install
+
+
