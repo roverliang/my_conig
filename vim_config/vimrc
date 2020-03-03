@@ -247,4 +247,8 @@ let loaded_matchparen=1
         "sudo make
         "sudo make install
 
-
+" ### 2.YouCompleteMe
+        " 安装时间会比较长，需要先执行,安装python3的类库。桌面版好像不需要。
+        " sudo apt install build-essential cmake python3-dev
+        " cd cd ~/.vim/plugged/youcompleteme/
+        " ./install.py --all
