@@ -11,11 +11,8 @@ set tabstop=4       " Tab键替换的空格长度，默认8
 set softtabstop=4   " 退格键退回缩进空格的长度
 set shiftwidth=4    " 表示每一级缩进的长度
 set expandtab       " 设置缩进用空格来表示
-"让vim记忆上次编辑的位置
-autocmd BufReadPost *
-			\ if line("'\"")>0&&line("'\"")<=line("$") |
-			\	exe "normal g'\"" |
-            \ endif
+
+" vim 记录上次编辑文件的位置
 
 " 为插件指定目录
 call plug#begin('~/.vim/plugged')
@@ -65,8 +62,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim' " PHP注释插件
 " 配置文档：https://github.com/beanworks/vim-phpfmt
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'godlygeek/tabular'
-
-
+Plug 'fatih/vim-go'
 
 " 使用非主分支 
 " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -252,3 +248,5 @@ let loaded_matchparen=1
         " sudo apt install build-essential cmake python3-dev
         " cd cd ~/.vim/plugged/youcompleteme/
         " ./install.py --all
+" ### 3.vim-go
+"       " 安装过这个插件之后，要执行GoInstallBinaries
