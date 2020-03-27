@@ -1,45 +1,38 @@
-" PlugInstall [name ...] [#threads]	安装插件
-" PlugUpdate [name ...] [#threads]	安装或更新插件
-" PlugClean[!]				删除未列出的插件（爆炸版本将在没有提示的情况下清除）
-" PlugUpgrade				本身升级vim-plug
-" PlugStatus				检查插件状态
-" PlugDiff				检查来自先前更新的更改以及未决的更改
-" PlugSnapshot[!] [output path]		生成脚本以还原插件的当前快照
+" PlugInstall [name ...] [#threads]	       安装插件
+" PlugUpdate [name ...] [#threads]	       安装或更新插件
+" PlugClean[!]				               删除未列出的插件（爆炸版本将在没有提示的情况下清除）
+" PlugUpgrade				               本身升级vim-plug
+" PlugStatus				               检查插件状态
+" PlugDiff				                   检查来自先前更新的更改以及未决的更改
+" PlugSnapshot[!] [output path]		       生成脚本以还原插件的当前快照
 "
 set nu
 set tabstop=4       " Tab键替换的空格长度，默认8
 set softtabstop=4   " 退格键退回缩进空格的长度
 set shiftwidth=4    " 表示每一级缩进的长度
 set expandtab       " 设置缩进用空格来表示
+set cursorline      " 突出显示当前行
+set autoindent      " 继承前一行的缩进方式，适用于多行注释
+filetype on         " 检测文件类型
+syntax on           " 语法高亮
 
-" vim 记录上次编辑文件的位置
 
 " 为插件指定目录
 call plug#begin('~/.vim/plugged')
-
-" 请确保使用单引号 
 " 允许任何有效的git URL  
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" 多插头命令可以在一个单一的线路使用被写入|分隔符  
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " 这里我们只安装 php 的插件【phpcd】
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-
-
-" 按需加载  
 " 目录树
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " 显示git信息
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'valloric/youcompleteme'
 Plug 'Chiel92/vim-autoformat'
+
 " ctags 生成插件
 Plug 'ludovicchabant/vim-gutentags'
-
-
-" 状态栏 https://github.com/vim-airline/vim-airline
+" 状态栏 
 Plug 'vim-airline/vim-airline'
 "状态栏配色
 Plug 'vim-airline/vim-airline-themes'
@@ -49,43 +42,24 @@ Plug 'flazz/vim-colorschemes'
 
 "php语法着色插件
 Plug 'StanAngeloff/php.vim'
+
 " PHP语法检查https://stackoverflow.com/questions/857885/formatting-php-code-within-vim
 Plug 'stephpy/vim-php-cs-fixer'
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'vim-scripts/taglist.vim'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 Plug 'yegappan/mru' "最近文件列表
 Plug 'vim-scripts/DoxygenToolkit.vim' " PHP注释插件
-" 配置文档：https://github.com/beanworks/vim-phpfmt
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'godlygeek/tabular'
-Plug 'fatih/vim-go'
-
-" 使用非主分支 
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" 使用带标签的版本;允许通配（需要git 1.9.2或更高版本 
-" Plug 'fatih/vim-go', { 'tag': '*' }
-
-" 插件选项 
-" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" 插件〜/ .vim /用更新后挂钩 
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" 非托管插件（手动安装和更新  
-" Plug '~/my-prototype-plugin'
-
-" 初始化插件系统
+Plug 'fatih/vim-go',{'tag': '*'}
+Plug 'majutsushi/tagbar'
 call plug#end()
 
-" 插件NERD配置开始
-" 打开vim时,自动打开NERDTree
-" autocmd vimenter * NERDTree
-" 使用Ctrl + t 切换目录树
+" ===================================UI配置===================================
+colorscheme  Atelier_SeasideDark
+set background=dark " 主题背景 dark-深色; light-浅色
+" ===================================配置结束===================================
+
+" ===================================NERDTreeToggle配置开始===================================
+" 使用Ctrl + d 切换目录树
 map <C-d> :NERDTreeToggle<CR>
 " ctrl + w(double) 在目录和文件直接自由的切换.
 "当NERDTree为剩下的唯一窗口时自动关闭
@@ -102,7 +76,6 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=0
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-
 " 设置宽度
 let NERDTreeWinSize=40
 " 开发的过程中，我们希望git信息直接在NERDTree中显示出来
@@ -117,11 +90,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+" ===================================NERDTreeToggle配置结束===================================
 
-"colorscheme Atelier_HeathDark 
-colorscheme  Atelier_SeasideDark
-"colorscheme Light 
-" au BufWritePost *.php silent! !eval '[ -f ".git/hooks/ctags" ] && .git/hooks/ctags' &
+
 
 " ===================================gutentags配置开始===================================
 " doc地址：https://www.cnblogs.com/pengdonglin137/articles/10202606.html
@@ -145,12 +116,6 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " ===================================gutentags配置结束===================================
-
-" 检测文件类型
-filetype on
-
-" 语法高亮
-syntax on
 
 
 "===================================php-cs-fixer配置开始==================================
@@ -180,19 +145,6 @@ let g:php_cs_fixer_verbose = 0                    " Return the output of command
 "nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
 "===================================php-cs-fixer配置结束==================================
-
-"===================================TagList配置开始==================================
-" doc:https://blog.csdn.net/vaqeteart/article/details/4146618
-map <C-f> <Esc>:TlistToggle<Cr>
-let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
-let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
-let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
-let Tlist_Auto_Open=0                  "启动VIM后，自动打开taglist窗口
-let Tlist_Close_On_Select=0            "选择了tag后自动关闭taglist窗口
-let Tlist_GainFocus_On_ToggleOpen=1    "TlistToggle打开taglist窗口时，如果希望输入焦点在taglist窗口中
-let Tlist_Process_File_Always=1        "希望taglist始终解析文件中的tag，不管taglist窗口有没有打开
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-let Tlist_Use_SingleClick=1            " 单击该Tag跳转到该Tag定义
 
 "===================================TagList配置结束==================================
 
@@ -229,10 +181,68 @@ nmap ,da :DoxAuthor<CR><ESC>k8==
 nmap ,db :DoxBlock<CR><ESC>k8==
 
 "光标
-let loaded_matchparen=1
+"let loaded_matchparen=1
 
 
 
+
+"==============================================================================
+" vim-go 插件
+"==============================================================================
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+
+let g:godef_split=2
+
+
+
+"==============================================================================
+"  majutsushi/tagbar 插件
+"==============================================================================
+
+" majutsushi/tagbar 插件打开关闭快捷键
+"nmap <F9> :TagbarToggle<CR>
+map <C-f> <Esc>:TagbarToggle<Cr>
+"autocmd FileType * nested :call tagbar#autoopen(0)
+autocmd FileType go nested :TagbarOpen
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " ========================================================一些依赖安装============================================
 " ### 1.catgs 安装
